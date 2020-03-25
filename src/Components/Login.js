@@ -1,12 +1,25 @@
 import React, { Component, useEffect, useState } from "react";
-import { Container, makeStyles, Paper, TextField, Button, Typography } from '@material-ui/core';
-import { Redirect,Route,Link,useHistory } from "react-router-dom";
+import {
+    Container,
+    makeStyles,
+    Paper,
+    TextField,
+    Button,
+    Typography,
+    CssBaseline
+} from '@material-ui/core';
+import { Redirect, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
+    paper: {
+        marginTop: '35%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        borderRadius: 10,
+    },
     root: {
-        padding: "5%",
-        margin: 'auto',
-        // width: '30%'
+        paddingTop: "15%",
     },
     underline: {
         "&&&:before": {
@@ -15,21 +28,22 @@ const useStyles = makeStyles(theme => ({
         "&&:after": {
             borderBottom: "none"
         },
-        borderRadius: 20,
-        width: '80%',
+        borderRadius: 10,
         margin: '2% auto'
     },
     input: {
         padding: 10
     },
     loginButton: {
-        borderRadius: 25,
-        width: '80%',
-        margin: '2% 10%',
-        padding: '2%'
+        borderRadius: 10,
+        margin: theme.spacing(3, 0, 2),
     },
-    heading: {
-        padding: '1% 10%'
+    form: {
+        width: '80%',
+        marginTop: theme.spacing(1),
+    },
+    typo:{
+        paddingBottom: "5%"
     }
 }));
 
@@ -72,12 +86,11 @@ const Login = (Props) => {
 
     if (token) return <Redirect to="/dashboard" />;
     return (
-        <React.Fragment>
-            <Container fixed>
-                <Paper elevation={3} className={classes.root}>
-                    <div className={classes.heading}>
-                        <Typography variant='h3' align='left'>Login</Typography>
-                    </div>
+        <Container component="main" maxWidth="xs" className={classes.root}>
+            <CssBaseline />
+            <Paper elevation={3} className={classes.paper}>
+                <form className={classes.form} noValidate>
+                    <Typography variant='h5' color='textSecondary' align='left' className={classes.typo}>Login</Typography>
                     <TextField
                         variant='filled'
                         type='text'
@@ -98,10 +111,17 @@ const Login = (Props) => {
                         required
                         onChange={(ev) => onChangeHandler(ev)}
                     />
-                    <Button color='primary' variant='contained' className={classes.loginButton} onClick={() => login()}>Login</Button>
-                </Paper>
-            </Container>
-        </React.Fragment>
+                    <Button
+                        color='primary'
+                        variant='contained'
+                        fullWidth
+                        className={classes.loginButton}
+                        onClick={() => login()}>
+                        Login
+                    </Button>
+                </form>
+            </Paper>
+        </Container>
     );
 
 }
