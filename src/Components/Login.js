@@ -23,9 +23,11 @@ const useStyles = makeStyles(theme => ({
     },
     underline: {
         "&&&:before": {
+            borderRadius: 10,
             borderBottom: "none"
         },
         "&&:after": {
+            borderRadius: 10,
             borderBottom: "none"
         },
         borderRadius: 10,
@@ -50,7 +52,8 @@ const useStyles = makeStyles(theme => ({
 
 const Login = (Props) => {
     const history = useHistory()
-    const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    const token = document.cookie;
+    console.log(token)
     const [name, setName] = useState('');
     const [id, setId] = useState('');
     const [loader, setLoader] = useState(false)
@@ -76,6 +79,8 @@ const Login = (Props) => {
                 console.log('Success:', data);
                 localStorage.setItem("image", data.image)
                 localStorage.setItem("name", data.token.name)
+                document.cookie=`token=${data.token.token}`
+                console.log(document.cookie)
                 history.push("./dashboard")
             })
             .catch((error) => {
